@@ -4,13 +4,12 @@ ARCH=$(uname -m)
 
 echo "Installing package dependencies..."
 echo "---------------------------------------------------------------"
-sudo pacman -Syy --noconfirm archlinux-keyring
-#Build
-sudo pacman -S --noconfirm --needed git base-devel meson blueprint-compiler
+#Make
+pacman -S --noconfirm --needed meson blueprint-compiler
 #Needed
-sudo pacman -S --noconfirm --needed libadwaita python-gobject libpwquality sqlcipher tcl python-pycryptodome python-zxcvbn
+pacman -S --noconfirm --needed libadwaita python-gobject libpwquality sqlcipher tcl python-pycryptodome python-zxcvbn
 #Check
-sudo pacman -S --noconfirm --needed appstream-glib desktop-file-utils 
+pacman -S --noconfirm --needed appstream-glib desktop-file-utils 
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
@@ -18,14 +17,15 @@ get-debloated-pkgs --add-common --prefer-nano
 
 echo "Installing masterkey from source packages..."
 echo "---------------------------------------------------------------"
-if [ -d "source" ]; then rm -rf source; fi
-git clone https://gitlab.com/guillermop/master-key.git source
-
-cd source
-meson setup build --prefix=/usr
-meson compile -C build
-sudo meson install -C build
-cd ..
+git clone https://github.com/guillermop/master-key.git && (
+	cd ./master-key
+	TAG=$(git tag --sort=-v:refname | grep -vi 'rc\|alpha' | head -1)
+	git checkout "$TAG"
+	echo "$TAG" > ~/version
+	meson setup build --prefix=/usr
+	meson compile -C build
+	meson install -C build
+)
 
 # Comment this out if you need an AUR package
 #make-aur-package PACKAGENAME
