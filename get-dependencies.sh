@@ -17,7 +17,7 @@ get-debloated-pkgs --add-common --prefer-nano
 
 echo "Installing masterkey from source packages..."
 echo "---------------------------------------------------------------"
-git clone https://github.com/guillermop/master-key.git && (
+git clone https://gitlab.com/guillermop/master-key.git && (
 	cd ./master-key
 	TAG=$(git tag --sort=-v:refname | grep -vi 'rc\|alpha' | head -1)
 	git checkout "$TAG"
