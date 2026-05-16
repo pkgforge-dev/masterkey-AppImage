@@ -2,9 +2,8 @@
 set -eu
 
 # Setup
-VERSION=$(grep -m 1 "version:" source/meson.build | cut -d"'" -f2)
-export VERSION
-export ARCH=$(uname -m)
+ARCH=$(uname -m)
+export ARCH
 export OUTPATH=./dist
 export ADD_HOOKS="self-updater.hook"
 export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}|latest|*$ARCH.AppImage.zsync"
