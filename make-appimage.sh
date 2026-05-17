@@ -13,6 +13,7 @@ export PATH_MAPPING='/usr/share/master-key:${SHARUN_DIR}/share/master-key'
 export DEPLOY_PYTHON=1
 export STARTUPWMCLASS=com.gitlab.guillermop.MasterKey # Default to Wayland's wmclass. For X11, GTK_CLASS_FIX will force the wmclass to be the Wayland one.
 export GTK_CLASS_FIX=1
+export ALWAYS_SOFTWARE=1
 
 # Deploy dependencies
 quick-sharun \
